@@ -14,8 +14,8 @@ const mongoURI = process.env.MONGO_DEV_URI;
 const app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
+  console.log("🐳 Helen 🍄 -- app.use -- req:", req.body);
   console.log("ERROR", err);
   if (err.isOperational) {
     return sendResponse(

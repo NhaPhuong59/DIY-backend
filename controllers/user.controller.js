@@ -3,12 +3,16 @@ const Users = require("../models/Users");
 const bcrypt = require("bcryptjs");
 const { AppError } = require("../helpers/utils");
 const crypto = require("crypto");
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// const sgMail = require("@sendgrid/mail");
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const usersController = {};
 
 usersController.createUser = catchAsync(async (req, res, next) => {
+  console.log(
+    "🐳 Helen 🍄 -- usersController.createUser=catchAsync -- req:",
+    req.body
+  );
   let { firstName, lastName, email, password } = req.body;
   let user = await Users.findOne({ email }, "+password");
   if (user) {
@@ -91,10 +95,10 @@ usersController.putForgotPassword = catchAsync(async (req, res, next) => {
     If you did not request this, please ignore this email and your password will remain unchanged.`,
   };
 
-  sgMail
-    .send(msg)
-    .then((respose) => console.log("email sent..."))
-    .catch((error) => console.log(error.message));
+  //   sgMail
+  //     .send(msg)
+  //     .then((respose) => console.log("email sent..."))
+  //     .catch((error) => console.log(error.message));
 
   const success = `An email has been sent to ${email} with further instruction. If you do not see our email, please check the spam!`;
   return sendResponse(res, 200, success, {}, null, "Successful");
@@ -133,10 +137,10 @@ usersController.resetPassword = catchAsync(async (req, res, next) => {
     text: `Hello ${user.firstName} ${user.lastName}!, This email is to confirm that the password for your account has just been changed. If you did not make this change, please hit reply and notify us at once.`,
   };
 
-  sgMail
-    .send(msg)
-    .then((respose) => console.log("email sent..."))
-    .catch((error) => console.log(error.message));
+  //   sgMail
+  //     .send(msg)
+  //     .then((respose) => console.log("email sent..."))
+  //     .catch((error) => console.log(error.message));
 
   return sendResponse(
     res,
