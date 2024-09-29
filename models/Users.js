@@ -7,8 +7,8 @@ const userSchema = Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    avatar: { type: String | null, required: false },
-    bio: { type: String | null, required: false },
+    avatar: { type: String, required: false },
+    bio: { type: String, required: false },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
     role: { type: String, enum: ["user", "partner"], default: "user" },

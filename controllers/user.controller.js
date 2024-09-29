@@ -22,8 +22,8 @@ usersController.createUser = catchAsync(async (req, res, next) => {
     lastName,
     email,
     password,
-    avatar: null,
-    bio: null,
+    avatar: "",
+    bio: "",
   });
 
   const accessToken = user.generateToken();
