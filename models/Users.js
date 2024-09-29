@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-// const { required } = require("nodemon/lib/config");
 const Schema = mongoose.Schema;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -8,6 +7,8 @@ const userSchema = Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    avatar: { type: String | null, required: false },
+    bio: { type: String | null, required: false },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
     role: { type: String, enum: ["user", "partner"], default: "user" },

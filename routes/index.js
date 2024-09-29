@@ -9,11 +9,7 @@ router.get("/", (req, res, next) => {
 const userRoutes = require("./users.js");
 router.use("/users", userRoutes);
 
-// const bookingRoutes = require("./booking.js");
-// router.use("/booking", bookingRoutes);
-// const imageRoutes = require("./images.js");
-// router.use("/image", imageRoutes);
-// const ratingRoutes = require("./rating.js");
-// router.use("/rating", ratingRoutes);
+const videoRoutes = require("./videos.js");
+router.use("/videos", videoRoutes);
 
 module.exports = router;

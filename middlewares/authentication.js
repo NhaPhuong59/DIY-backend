@@ -17,7 +17,7 @@ authMiddleware.loginRequired = (req, res, next) => {
     jwt.verify(token, JWT_SECRET_KEY, (err, payload) => {
       if (err) {
         // throw new AppError(401, "Token Error", "Login Require Error");
-        throw new Error(401, "Token Error");
+        throw new Error(401, "Token Expired");
       }
       checkObjectId(payload._id);
       req.currentUserId = payload._id; //undefiend

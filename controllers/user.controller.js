@@ -9,10 +9,6 @@ const crypto = require("crypto");
 const usersController = {};
 
 usersController.createUser = catchAsync(async (req, res, next) => {
-  console.log(
-    "🐳 Helen 🍄 -- usersController.createUser=catchAsync -- req:",
-    req.body
-  );
   let { firstName, lastName, email, password } = req.body;
   let user = await Users.findOne({ email }, "+password");
   if (user) {
@@ -26,6 +22,8 @@ usersController.createUser = catchAsync(async (req, res, next) => {
     lastName,
     email,
     password,
+    avatar: null,
+    bio: null,
   });
 
   const accessToken = user.generateToken();
@@ -36,7 +34,7 @@ usersController.createUser = catchAsync(async (req, res, next) => {
     true,
     { user, accessToken },
     null,
-    "Create user successful"
+    "Create account successfully"
   );
 });
 
@@ -44,12 +42,20 @@ usersController.userLogin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await Users.findOne({ email }, "+password");
   if (!user) {
-    throw new AppError(400, "User not found", "Login Error");
+    throw new AppError(
+      400,
+      "Your email or password is incorrect",
+      "Login Error"
+    );
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    throw new AppError(400, "Pasword is incorrect", "Login Error");
+    throw new AppError(
+      400,
+      "Your email or password is incorrect",
+      "Login Error"
+    );
   }
   const accessToken = user.generateToken();
   res.cookie("session", accessToken, { httpOnly: true });

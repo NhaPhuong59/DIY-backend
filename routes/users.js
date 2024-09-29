@@ -37,6 +37,7 @@ router.get(
   loginRequired,
   getCurrentUser
 );
+
 router.post(
   "/reset",
   validate([body("email", "Invalid email").exists().isEmail()]),
