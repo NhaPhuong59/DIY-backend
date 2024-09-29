@@ -1,8 +1,8 @@
 const express = require("express");
 const { body, header, param } = require("express-validator");
-const { createUser } = require("../controllers/user.controller");
 const { loginRequired } = require("../middlewares/authentication");
 const { validate, checkObjectId } = require("../middlewares/validator");
+const { createVideo } = require("../controllers/video.controller");
 const router = express.Router();
 
 router.post(
@@ -17,5 +17,7 @@ router.post(
     body("difficulty", "Invalid difficulty").exists().notEmpty(),
     body("tool", "Invalid tool").exists().notEmpty(),
   ]),
-  createUser
+  createVideo
 );
+
+module.exports = router;

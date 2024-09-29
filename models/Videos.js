@@ -84,4 +84,5 @@ videoSchema.methods.toJSON = function () {
 };
 
 const Videos = mongoose.model("Videos", videoSchema);
+
 module.exports = Videos;

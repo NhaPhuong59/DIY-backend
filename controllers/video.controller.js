@@ -134,3 +134,5 @@ videosController.updateVideo = catchAsync(async (req, res) => {
   video = await video.save();
   return sendResponse(res, 200, true, video, null, "Update successful");
 });
+
+module.exports = videosController;
