@@ -75,7 +75,7 @@ usersController.getCurrentUser = catchAsync(async (req, res, next) => {
   if (!currentUser) {
     throw new AppError(404, "User not found", "Get User Error");
   }
-  return sendResponse(res, 200, currentUser, null, "successful");
+  return sendResponse(res, 200, true, currentUser, null);
 });
 
 usersController.putForgotPassword = catchAsync(async (req, res, next) => {
