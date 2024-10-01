@@ -116,14 +116,32 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
 
 videosController.getVideoById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  let videoList = await Videos.findById(id);
-  return sendResponse(res, 200, true, videoList, null, "successful");
+  let video = await Videos.findById(id);
+
+  return sendResponse(res, 200, true, video, null, "successful");
 });
 
 videosController.getVideosByUser = catchAsync(async (req, res) => {
   const { user_id } = req.params;
-  let videoList = await Videos.find({ user_id });
-  return sendResponse(res, 200, true, videoList, null, "successful");
+
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 9;
+  const offset = limit * (page - 1);
+
+  let videoList = await Videos.find({ user_id })
+    .skip(offset)
+    .limit(limit)
+    .sort({ createdAt: -1 });
+  const totalPage = Math.ceil(videoList.length / limit);
+
+  return sendResponse(
+    res,
+    200,
+    true,
+    { videoList, totalPage },
+    null,
+    "successful"
+  );
 });
 
 videosController.updateVideo = catchAsync(async (req, res) => {

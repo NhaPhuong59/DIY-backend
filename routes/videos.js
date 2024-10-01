@@ -1,8 +1,14 @@
 const express = require("express");
-const { body, header, param } = require("express-validator");
+const { body } = require("express-validator");
 const { loginRequired } = require("../middlewares/authentication");
-const { validate, checkObjectId } = require("../middlewares/validator");
-const { createVideo } = require("../controllers/video.controller");
+const { validate } = require("../middlewares/validator");
+const {
+  createVideo,
+  getVideo,
+  getVideoById,
+  getVideosByUser,
+  updateVideo,
+} = require("../controllers/video.controller");
 const router = express.Router();
 
 router.post(
@@ -19,5 +25,9 @@ router.post(
   ]),
   createVideo
 );
+router.get("/", getVideo);
+router.get("/:id", getVideoById);
+router.get("/user/:id", loginRequired, getVideosByUser);
+router.put("/", loginRequired, updateVideo);
 
 module.exports = router;
