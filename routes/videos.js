@@ -16,7 +16,7 @@ router.post(
   validate([
     body("title", "Invalid title").exists().notEmpty(),
     body("videoUrl", "Invalid video").exists().notEmpty(),
-    body("category", "Invalid category").exists().isEmail(),
+    body("category", "Invalid category").exists().notEmpty(),
     body("collection", "Invalid collection").exists().notEmpty(),
     body("duration", "Invalid duration").exists().notEmpty(),
     body("material", "Invalid material").exists().notEmpty(),

@@ -19,6 +19,7 @@ const videoSchema = Schema(
         "jewelry",
         "kid",
         "pottery",
+        "art",
       ],
     },
     collection: {
