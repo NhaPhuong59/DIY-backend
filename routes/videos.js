@@ -19,9 +19,9 @@ router.post(
     body("category", "Invalid category").exists().notEmpty(),
     body("collection", "Invalid collection").exists().notEmpty(),
     body("duration", "Invalid duration").exists().notEmpty(),
-    body("material", "Invalid material").exists().notEmpty(),
+    // body("material", "Invalid material").exists().notEmpty(),
     body("difficulty", "Invalid difficulty").exists().notEmpty(),
-    body("tool", "Invalid tool").exists().notEmpty(),
+    // body("tool", "Invalid tool").exists().notEmpty(),
   ]),
   createVideo
 );
