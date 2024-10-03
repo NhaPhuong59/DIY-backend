@@ -6,7 +6,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const videoSchema = Schema(
   {
     user_id: { type: Schema.Types.ObjectId, ref: "Users", required: true },
-    userName: { firsName: { type: String }, lastName: { type: String } },
+    userName: { firstName: { type: String }, lastName: { type: String } },
     title: { type: String, required: true },
     description: { type: String, required: false },
     videoUrl: { type: String, required: true },
