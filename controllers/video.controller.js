@@ -26,7 +26,11 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
   const userInformation = await Users.findById(user_id);
 
   video = await Videos.create({
-    userInformation,
+    user_id,
+    userName: {
+      firstName: userInformation.firstName,
+      lastName: userInformation.lastName,
+    },
     title,
     description,
     category,
