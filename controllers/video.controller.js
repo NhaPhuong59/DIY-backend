@@ -157,4 +157,12 @@ videosController.updateVideo = catchAsync(async (req, res) => {
   return sendResponse(res, 200, true, video, null, "Update successful");
 });
 
+videosController.deleteVideo = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  let newList = await Videos.remove({ _id: id });
+
+  newList = await newList.save();
+  return sendResponse(res, 200, true, newList, null, "Delete successful");
+});
+
 module.exports = videosController;

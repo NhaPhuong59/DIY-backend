@@ -8,6 +8,7 @@ const {
   getVideoById,
   getVideosByUser,
   updateVideo,
+  deleteVideo,
 } = require("../controllers/video.controller");
 const router = express.Router();
 
@@ -29,5 +30,6 @@ router.get("/", getVideo);
 router.get("/:id", getVideoById);
 router.get("/user/:id", loginRequired, getVideosByUser);
 router.put("/:id", loginRequired, updateVideo);
+router.delete("/:id", loginRequired, deleteVideo);
 
 module.exports = router;
