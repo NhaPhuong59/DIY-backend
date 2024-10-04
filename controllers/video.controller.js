@@ -121,7 +121,7 @@ videosController.getVideoById = catchAsync(async (req, res) => {
 
 videosController.getVideosByUser = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const { page, limit } = req.query;
+  let { page, limit } = req.query;
 
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 9;
