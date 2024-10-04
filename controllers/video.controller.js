@@ -40,7 +40,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     material,
     difficulty,
     tool,
-    rating,
+    rating: [],
   });
 
   return sendResponse(
@@ -159,7 +159,7 @@ videosController.updateVideo = catchAsync(async (req, res) => {
 
 videosController.deleteVideo = catchAsync(async (req, res) => {
   const { id } = req.params;
-  let newList = await Videos.remove({ _id: id });
+  let newList = await Videos.findOneAndDelete({ _id: id });
 
   newList = await newList.save();
   return sendResponse(res, 200, true, newList, null, "Delete successful");
