@@ -28,6 +28,6 @@ router.post(
 router.get("/", getVideo);
 router.get("/:id", getVideoById);
 router.get("/user/:id", loginRequired, getVideosByUser);
-router.put("/", loginRequired, updateVideo);
+router.put("/:id", loginRequired, updateVideo);
 
 module.exports = router;
