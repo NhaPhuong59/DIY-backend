@@ -16,12 +16,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     material,
     difficulty,
     tool,
-    rating,
   } = req.body;
-  console.log(
-    "🐳 Helen 🍄 -- videosController.createUser=catchAsync -- req:",
-    req.body
-  );
 
   const userInformation = await Users.findById(user_id);
 
@@ -40,7 +35,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     material,
     difficulty,
     tool,
-    rating: [],
+    rating: null,
   });
 
   return sendResponse(
@@ -65,7 +60,6 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
     difficulty,
     tool,
   } = req.query;
-  console.log("req.query", req.query);
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 9;
   const offset = limit * (page - 1);
@@ -99,7 +93,7 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
   else if (filter.length === 1) filter = filter[0];
   else filter = { $and: filter };
 
-  console.log("filter", JSON.stringify(filter));
+  // console.log("filter", JSON.stringify(filter));
 
   const count = await Videos.countDocuments(filter);
   const totalPage = Math.ceil(count / limit);
@@ -161,8 +155,7 @@ videosController.deleteVideo = catchAsync(async (req, res) => {
   const { id } = req.params;
   let newList = await Videos.findOneAndDelete({ _id: id });
 
-  newList = await newList.save();
-  return sendResponse(res, 200, true, newList, null, "Delete successful");
+  return sendResponse(res, 200, true, {}, null, "Delete successful");
 });
 
 module.exports = videosController;

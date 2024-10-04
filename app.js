@@ -58,8 +58,6 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  console.log("🐳 Helen 🍄 -- app.use -- req:", req.body);
-  console.log("ERROR", err);
   if (err.isOperational) {
     return sendResponse(
       res,

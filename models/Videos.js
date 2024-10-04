@@ -77,7 +77,11 @@ const videoSchema = Schema(
     //   "tap_measure",
     //   "sander",
     // ],
-    rating: { type: Number, default: 0 },
+    rating: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,
