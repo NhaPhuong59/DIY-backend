@@ -120,13 +120,14 @@ videosController.getVideoById = catchAsync(async (req, res) => {
 });
 
 videosController.getVideosByUser = catchAsync(async (req, res) => {
-  const { user_id } = req.params;
+  const { id } = req.params;
+  const { page, limit } = req.query;
 
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 9;
   const offset = limit * (page - 1);
 
-  let videoList = await Videos.find({ user_id })
+  let videoList = await Videos.find({ id })
     .skip(offset)
     .limit(limit)
     .sort({ createdAt: -1 });
