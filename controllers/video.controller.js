@@ -127,7 +127,7 @@ videosController.getVideosByUser = catchAsync(async (req, res) => {
   limit = parseInt(limit) || 9;
   const offset = limit * (page - 1);
 
-  let videoList = await Videos.find({ id })
+  let videoList = await Videos.find({ user_id: id })
     .skip(offset)
     .limit(limit)
     .sort({ createdAt: -1 });
