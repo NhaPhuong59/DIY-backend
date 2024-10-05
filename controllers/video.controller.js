@@ -60,6 +60,10 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
     difficulty,
     tool,
   } = req.query;
+  console.log(
+    "🐳 Helen 🍄 -- videosController.getVideo=catchAsync -- material:",
+    material
+  );
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 9;
   const offset = limit * (page - 1);
@@ -80,13 +84,13 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
     filter.push({ duration });
   }
   if (material) {
-    filter.push({ material });
+    filter.push({ material: { $all: material.split(",") } });
   }
   if (difficulty) {
     filter.push({ difficulty });
   }
   if (tool) {
-    filter.push({ tool });
+    filter.push({ tool: { $all: tool.split(",") } });
   }
 
   if (filter.length === 0) filter = {};

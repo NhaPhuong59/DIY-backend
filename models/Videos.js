@@ -40,11 +40,10 @@ const videoSchema = Schema(
       type: String,
       enum: ["2h", "4h", "8h", "12h", "2d", "3d", "4d"],
     },
-    material: [
-      {
-        type: String,
-      },
-    ],
+    material: {
+      type: String,
+    },
+
     // enum: [
     //   "adhesive",
     //   "brick",
@@ -59,11 +58,10 @@ const videoSchema = Schema(
     //   "wood",
     // ],
     difficulty: { type: String, enum: ["easy", "medium", "hard"] },
-    tool: [
-      {
-        type: String,
-      },
-    ],
+    tool: {
+      type: String,
+    },
+
     // enum: [
     //   "drill",
     //   "hammer",
@@ -77,11 +75,9 @@ const videoSchema = Schema(
     //   "tap_measure",
     //   "sander",
     // ],
-    rating: [
-      {
-        type: String,
-      },
-    ],
+    rating: {
+      type: String,
+    },
   },
   {
     timestamps: true,
