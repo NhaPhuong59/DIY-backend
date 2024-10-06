@@ -36,7 +36,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     material,
     difficulty,
     tool,
-    rating: null,
+    rating: [],
     view: viewInitial,
   });
 
@@ -173,6 +173,31 @@ videosController.updateView = catchAsync(async (req, res) => {
     video
   );
   video.view += 1;
+  video = await video.save();
+  return sendResponse(res, 200, true, {}, null, "Success");
+});
+
+videosController.updateRating = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  console.log(
+    "🐳 Helen 🍄 -- videosController.updateRating=catchAsync -- id:",
+    id
+  );
+  const { userId } = req.body;
+  let video = await Videos.findById(id);
+  console.log(
+    "🐳 Helen 🍄 -- videosController.updateRating=catchAsync -- video:",
+    video
+  );
+  const newRating = video.rating;
+  const founded = newRating?.find((item) => item === userId);
+  if (founded) {
+    const index = newRating.indexOf(userId);
+    newRating.splice(index, 1);
+  } else {
+    newRating.push(userId);
+  }
+  video.rating = newRating;
   video = await video.save();
   return sendResponse(res, 200, true, {}, null, "Success");
 });

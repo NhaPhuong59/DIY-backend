@@ -10,6 +10,7 @@ const {
   updateVideo,
   deleteVideo,
   updateView,
+  updateRating,
 } = require("../controllers/video.controller");
 const router = express.Router();
 
@@ -33,5 +34,5 @@ router.get("/user/:id", loginRequired, getVideosByUser);
 router.put("/:id", loginRequired, updateVideo);
 router.delete("/:id", loginRequired, deleteVideo);
 router.put("/view/:id", updateView);
-
+router.put("/rating/:id", loginRequired, updateRating);
 module.exports = router;
