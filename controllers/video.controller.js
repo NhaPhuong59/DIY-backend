@@ -19,6 +19,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
   } = req.body;
 
   const userInformation = await Users.findById(user_id);
+  const viewInitial = Math.floor(Math.random() * 200);
 
   video = await Videos.create({
     user_id,
@@ -36,6 +37,7 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     difficulty,
     tool,
     rating: null,
+    view: viewInitial,
   });
 
   return sendResponse(
@@ -161,6 +163,18 @@ videosController.deleteVideo = catchAsync(async (req, res) => {
   let newList = await Videos.findOneAndDelete({ _id: id });
 
   return sendResponse(res, 200, true, {}, null, "Delete successful");
+});
+
+videosController.updateView = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  let video = await Videos.findById(id);
+  console.log(
+    "🐳 Helen 🍄 -- videosController.updateView=catchAsync -- video:",
+    video
+  );
+  video.view += 1;
+  video = await video.save();
+  return sendResponse(res, 200, true, {}, null, "Success");
 });
 
 module.exports = videosController;

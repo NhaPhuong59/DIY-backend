@@ -10,6 +10,7 @@ const videoSchema = Schema(
     title: { type: String, required: true },
     description: { type: String, required: false },
     videoUrl: { type: String, required: true },
+    view: { type: Number },
     category: {
       type: String,
       enum: [
