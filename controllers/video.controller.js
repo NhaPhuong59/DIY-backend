@@ -18,15 +18,10 @@ videosController.createVideo = catchAsync(async (req, res, next) => {
     tool,
   } = req.body;
 
-  const userInformation = await Users.findById(user_id);
   const viewInitial = Math.floor(Math.random() * 200);
 
   video = await Videos.create({
-    user_id,
-    userName: {
-      firstName: userInformation.firstName,
-      lastName: userInformation.lastName,
-    },
+    author: user_id,
     title,
     description,
     category,
@@ -106,7 +101,8 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
   let searchVideos = await Videos.find(filter)
     .skip(offset)
     .limit(limit)
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .populate("author");
   searchVideos.map((i) => console.log(i));
   return sendResponse(
     res,
@@ -120,7 +116,7 @@ videosController.getVideo = catchAsync(async (req, res, next) => {
 
 videosController.getVideoById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  let video = await Videos.findById(id);
+  let video = await Videos.findById(id).populate("author");
 
   return sendResponse(res, 200, true, video, null, "successful");
 });
@@ -133,10 +129,11 @@ videosController.getVideosByUser = catchAsync(async (req, res) => {
   limit = parseInt(limit) || 9;
   const offset = limit * (page - 1);
 
-  let videoList = await Videos.find({ user_id: id })
+  let videoList = await Videos.find({ author: id })
     .skip(offset)
     .limit(limit)
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .populate("author");
   const totalPage = Math.ceil(videoList.length / limit);
 
   return sendResponse(
