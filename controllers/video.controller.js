@@ -1,3 +1,4 @@
+const RegexEscape = require("regex-escape");
 const { catchAsync, sendResponse } = require("../helpers/utils");
 const Users = require("../models/Users");
 const Videos = require("../models/Videos");
