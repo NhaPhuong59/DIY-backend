@@ -80,11 +80,11 @@ usersController.getCurrentUser = catchAsync(async (req, res, next) => {
 
 usersController.updateUserProfile = catchAsync(async (req, res) => {
   const { id } = req.params;
-  let user = await Users.findByIdAndUpdate(id, {
+  await Users.findByIdAndUpdate(id, {
     ...req.body,
   });
-  user = await user.save();
-  return sendResponse(res, 200, true, user, null, "Update successful");
+  const newDataUser = await Users.findById(id);
+  return sendResponse(res, 200, true, newDataUser, null, "Update successful");
 });
 
 usersController.putForgotPassword = catchAsync(async (req, res, next) => {
